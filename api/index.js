@@ -1,6 +1,6 @@
 export default function handler(req, res) {
-  if (req.method === 'GET' && req.url === '/chat') {
-    // Serve the chat HTML
+  // Handle GET request - serve chat interface
+  if (req.method === 'GET') {
     res.setHeader('Content-Type', 'text/html');
     res.status(200).send(`
 <!DOCTYPE html>
@@ -142,6 +142,11 @@ export default function handler(req, res) {
     return;
   }
 
-  // Handle POST requests to /api/generate-recommendation
-  res.status(200).json({ message: "API is live!" });
+  // Handle POST request - API endpoint
+  if (req.method === 'POST') {
+    res.status(200).json({ message: "API is live - but you need to implement the AI logic here!" });
+    return;
+  }
+
+  res.status(405).json({ error: 'Method not allowed' });
 }
